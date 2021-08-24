@@ -8,5 +8,9 @@
 ## Usage
 
 ```bash
-cargo run
+# store the contents of input.txt into a variable
+GREP_LITE_INPUT="$(cat input.txt)"
+
+# run the grep-lite and use `GREP_LITE_INPUT` variable as input
+cargo run --quiet -- "Abbey Road" $GREP_LITE_INPUT
 ```

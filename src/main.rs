@@ -1,4 +1,6 @@
+use std::env::args;
 use std::fmt;
+use std::process::exit;
 
 struct Line {
     index: usize,
@@ -53,15 +55,16 @@ impl Line {
 }
 
 fn main() {
-    let term = "Abbey Road";
-    let input = "\
-        \"Something\" is a song by the English rock band the Beatles from
-        their 1969 album Abbey Road. It was written by George Harrison,
-        the band's lead guitarist. Together with his second contribution
-        to Abbey Road, \"Here Comes the Sun\", it is widely viewed by music
-        historians as having marked Harrison's ascendancy as a composer to
-        the level of the Beatles' principal songwriters, John Lennon and
-        Paul McCartney.";
+    let args: Vec<String> = args().collect();
+
+    if args.len() < 3 {
+        eprintln!("Expected 2 arguments. `term` and `input` are required arguments.");
+        exit(1);
+    }
+
+    let term = &args[1];
+    let input = &args[2];
+
     let mut lines = Lines::new(10);
 
     for (line_num, line) in input.lines().enumerate() {
