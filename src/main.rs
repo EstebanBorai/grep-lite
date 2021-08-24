@@ -1,6 +1,14 @@
+use std::fmt;
+
 struct Line {
     index: usize,
     value: String,
+}
+
+impl fmt::Display for Line {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}: {}", self.index + 1, self.value)
+    }
 }
 
 struct Lines(Vec<Line>);
@@ -27,18 +35,13 @@ impl Lines {
         let previous = index.saturating_sub(1);
 
         if previous == 0 && index != 0 {
-            let Line { index, value } = self.0.get(previous).unwrap();
-
-            println!("{}: {}", index + 1, value);
+            println!("{}", self.0.get(previous).unwrap());
         }
 
-        let line_at_index = self.0.get(index).unwrap();
-        println!("{}: {}", line_at_index.index + 1, line_at_index.value);
+        println!("{}", self.0.get(index).unwrap());
 
         if index + 1 <= self.0.len() - 1 {
-            let next = self.0.get(index + 1).unwrap();
-
-            println!("{}: {}", next.index + 1, next.value);
+            println!("{}", self.0.get(index + 1).unwrap());
         }
     }
 }
